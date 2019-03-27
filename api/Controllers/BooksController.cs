@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Fisher.Bookstore.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Fisher.Bookstore.Api.Controllers
+namespace Fisher.Bookstore.Data
 {
     [Route("api/books")]
     [ApiController]
