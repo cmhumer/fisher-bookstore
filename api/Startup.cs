@@ -29,7 +29,14 @@ namespace Fisher.Bookstore.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<BookstoreContext>(options => options.UseNpgsql(Configuration.GetConnectionString("BookstoreContext")));
-
+            services.AddCors(options =>{
+                options.AddPolicy("CorsPolicy", builder =>
+                {
+                    builder.WithOrigins("http://localhost:4200")
+                    .AllowAnyMethod()
+                    .AllowAnyHeader();
+                });
+            });
             services.AddIdentity<ApplicationUser, IdentityRole>()
             .AddEntityFrameworkStores<BookstoreContext>()
             .AddDefaultTokenProviders();
@@ -70,6 +77,7 @@ namespace Fisher.Bookstore.Api
             }
 
             app.UseAuthentication();
+            app.UseCors("CorsPolicy");
 
             app.UseHttpsRedirection();
             app.UseMvc();
